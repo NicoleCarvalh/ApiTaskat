@@ -33,12 +33,18 @@ public class Tarefa {
 
     private String descricao;
 
-    @NotNull(message = "O status é obrigatório")
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDENTE;
 
     private LocalDateTime dtVencimento;
 
     private LocalDateTime dtConclusao;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.status == null) {
+            this.status = Status.PENDENTE;
+        }
+    }
 }
 
